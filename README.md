@@ -280,4 +280,6 @@ git log --oneline --graph --all
 git rev-list --count --no-merges main
 ```
 
-clone과 pull의 실제 수행 증빙은 별도 복제 실습을 완료한 후 추가합니다.
+별도 폴더에서 clone 후 문서를 추가하여 commit과 push를 수행했습니다. 기존 작업 폴더에서 pull로 해당 변경을 가져오고 문서 내용과 Git 상태를 확인했습니다.
+
+자세한 과정은 [clone과 pull 실습 기록](docs/clone-practice.md)에 정리했습니다.
