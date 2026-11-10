@@ -35,8 +35,12 @@ class QuizGame:
             "history": self.history,
         }
 
-        if save_state(state):
-            print("ゲーム 데이터를 저장했습니다.")
+        success = save_state(state)
+
+        if success:
+            print("게임 데이터를 저장했습니다.")
+
+        return success
 
     def read_number(self, prompt, minimum, maximum):
         while True:
@@ -56,6 +60,15 @@ class QuizGame:
                 return number
 
             print(f"{minimum}부터 {maximum}까지 입력해 주세요.")
+
+    def read_text(self, prompt):
+        while True:
+            text = input(prompt).strip()
+
+            if text:
+                return text
+
+            print("내용을 입력해 주세요. 공백만 입력할 수 없습니다.")
 
     def show_menu(self):
         print("\n=== 파이썬 기초 퀴즈 게임 ===")
@@ -97,6 +110,35 @@ class QuizGame:
         print(f"획득 점수: {earned_points}/{total * 10}점")
         print(f"100점 환산 점수: {score:.1f}점")
 
+    def add_quiz(self):
+        print("\n=== 퀴즈 추가 ===")
+
+        question = self.read_text("문제 내용: ")
+
+        choices = []
+
+        for number in range(1, 5):
+            choice = self.read_text(f"선택지 {number}: ")
+            choices.append(choice)
+
+        answer = self.read_number("정답 번호 (1~4): ", 1, 4)
+        hint = input("힌트 (생략하려면 Enter): ").strip()
+
+        quiz = Quiz(
+            question=question,
+            choices=choices,
+            answer=answer,
+            hint=hint,
+        )
+
+        self.quizzes.append(quiz)
+
+        if self.save_data():
+            print(f"퀴즈를 추가했습니다. 현재 총 {len(self.quizzes)}개입니다.")
+        else:
+            print("퀴즈는 메모리에 추가됐지만 파일 저장에 실패했습니다.")
+            print("종료할 때 저장을 다시 시도합니다.")
+
     def run(self):
         while True:
             self.show_menu()
@@ -107,5 +149,7 @@ class QuizGame:
                 break
             elif choice == 1:
                 self.play()
+            elif choice == 2:
+                self.add_quiz()
             else:
                 print("아직 구현하지 않은 기능입니다.")
