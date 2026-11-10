@@ -1,3 +1,5 @@
+import random
+
 from quiz import Quiz
 from storage import load_state, save_state
 
@@ -85,10 +87,19 @@ class QuizGame:
             print("등록된 퀴즈가 없습니다.")
             return
 
-        correct_count = 0
-        total = len(self.quizzes)
+        available_count = len(self.quizzes)
+        print(f"\n등록된 퀴즈는 총 {available_count}개입니다.")
 
-        for number, quiz in enumerate(self.quizzes, start=1):
+        total = self.read_number(
+            f"몇 문제를 풀까요? (1~{available_count}): ",
+            1,
+            available_count,
+        )
+
+        selected_quizzes = random.sample(self.quizzes, total)
+        correct_count = 0
+
+        for number, quiz in enumerate(selected_quizzes, start=1):
             print(f"\n--- {number}/{total}번 문제 ---")
             quiz.display()
 
@@ -139,7 +150,6 @@ class QuizGame:
         print("\n=== 퀴즈 추가 ===")
 
         question = self.read_text("문제 내용: ")
-
         choices = []
 
         for number in range(1, 5):
