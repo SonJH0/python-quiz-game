@@ -139,6 +139,18 @@ class QuizGame:
             print("퀴즈는 메모리에 추가됐지만 파일 저장에 실패했습니다.")
             print("종료할 때 저장을 다시 시도합니다.")
 
+    def list_quizzes(self):
+        print("\n=== 퀴즈 목록 ===")
+
+        if not self.quizzes:
+            print("등록된 퀴즈가 없습니다.")
+            return
+
+        print(f"전체 퀴즈: {len(self.quizzes)}개")
+
+        for number, quiz in enumerate(self.quizzes, start=1):
+            print(f"{number}. {quiz.question}")
+
     def run(self):
         while True:
             self.show_menu()
@@ -151,5 +163,7 @@ class QuizGame:
                 self.play()
             elif choice == 2:
                 self.add_quiz()
+            elif choice == 3:
+                self.list_quizzes()
             else:
                 print("아직 구현하지 않은 기능입니다.")
