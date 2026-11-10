@@ -1,0 +1,79 @@
+from default_quizzes import create_default_quizzes
+
+
+class QuizGame:
+    def __init__(self):
+        self.quizzes = create_default_quizzes()
+        self.best_score = None
+
+    def read_number(self, prompt, minimum, maximum):
+        while True:
+            text = input(prompt).strip()
+
+            if not text:
+                print("빈 입력입니다. 숫자를 입력해 주세요.")
+                continue
+
+            try:
+                number = int(text)
+            except ValueError:
+                print("숫자로 입력해 주세요.")
+                continue
+
+            if minimum <= number <= maximum:
+                return number
+
+            print(f"{minimum}부터 {maximum}까지 입력해 주세요.")
+
+    def show_menu(self):
+        print("\n=== 파이썬 기초 퀴즈 게임 ===")
+        print("1. 퀴즈 풀기")
+        print("2. 퀴즈 추가")
+        print("3. 퀴즈 목록")
+        print("4. 최고 점수 확인")
+        print("5. 퀴즈 삭제")
+        print("6. 게임 기록 확인")
+        print("0. 종료")
+
+    def play(self):
+        if not self.quizzes:
+            print("등록된 퀴즈가 없습니다.")
+            return
+
+        correct_count = 0
+        total = len(self.quizzes)
+
+        for number, quiz in enumerate(self.quizzes, start=1):
+            print(f"\n--- {number}/{total}번 문제 ---")
+            quiz.display()
+
+            answer = self.read_number("정답 번호: ", 1, 4)
+
+            if quiz.is_correct(answer):
+                print("정답입니다!")
+                correct_count += 1
+            else:
+                correct_choice = quiz.choices[quiz.answer - 1]
+                print(f"오답입니다. 정답: {quiz.answer}. {correct_choice}")
+
+        earned_points = correct_count * 10
+        score = round(earned_points / (total * 10) * 100, 1)
+
+        print("\n=== 게임 결과 ===")
+        print(f"전체 문제: {total}개")
+        print(f"맞힌 문제: {correct_count}개")
+        print(f"획득 점수: {earned_points}/{total * 10}점")
+        print(f"100점 환산 점수: {score:.1f}점")
+
+    def run(self):
+        while True:
+            self.show_menu()
+            choice = self.read_number("메뉴 번호: ", 0, 6)
+
+            if choice == 0:
+                print("퀴즈 게임을 종료합니다.")
+                break
+            elif choice == 1:
+                self.play()
+            else:
+                print("아직 구현하지 않은 기능입니다.")
