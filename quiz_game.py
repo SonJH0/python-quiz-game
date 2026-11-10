@@ -1,3 +1,6 @@
+import random
+from datetime import datetime
+
 from quiz import Quiz
 from storage import load_state, save_state
 
@@ -80,37 +83,75 @@ class QuizGame:
         print("6. 게임 기록 확인")
         print("0. 종료")
 
+    def offer_hint(self, quiz):
+        if not quiz.hint.strip():
+            print("이 문제에는 등록된 힌트가 없습니다.")
+            return False
+
+        print("힌트를 사용하면 정답 점수가 10점에서 5점으로 줄어듭니다.")
+        choice = self.read_number(
+            "힌트를 사용할까요? (1. 사용 / 2. 사용 안 함): ",
+            1,
+            2,
+        )
+
+        if choice == 1:
+            print(f"힌트: {quiz.hint}")
+            return True
+
+        return False
+
     def play(self):
         if not self.quizzes:
             print("등록된 퀴즈가 없습니다.")
             return
 
-        correct_count = 0
-        total = len(self.quizzes)
+        available_count = len(self.quizzes)
+        print(f"\n등록된 퀴즈는 총 {available_count}개입니다.")
 
-        for number, quiz in enumerate(self.quizzes, start=1):
+        total = self.read_number(
+            f"몇 문제를 풀까요? (1~{available_count}): ",
+            1,
+            available_count,
+        )
+
+        selected_quizzes = random.sample(self.quizzes, total)
+        correct_count = 0
+        hint_count = 0
+        earned_points = 0
+
+        for number, quiz in enumerate(selected_quizzes, start=1):
             print(f"\n--- {number}/{total}번 문제 ---")
             quiz.display()
+
+            used_hint = self.offer_hint(quiz)
+
+            if used_hint:
+                hint_count += 1
 
             answer = self.read_number("정답 번호: ", 1, 4)
 
             if quiz.is_correct(answer):
-                print("정답입니다!")
                 correct_count += 1
+                points = 5 if used_hint else 10
+                earned_points += points
+                print(f"정답입니다! {points}점을 얻었습니다.")
             else:
                 correct_choice = quiz.choices[quiz.answer - 1]
                 print(f"오답입니다. 정답: {quiz.answer}. {correct_choice}")
+                print("이번 문제의 획득 점수는 0점입니다.")
 
-        earned_points = correct_count * 10
         score = round(earned_points / (total * 10) * 100, 1)
 
         print("\n=== 게임 결과 ===")
         print(f"전체 문제: {total}개")
         print(f"맞힌 문제: {correct_count}개")
+        print(f"힌트 사용: {hint_count}회")
         print(f"획득 점수: {earned_points}/{total * 10}점")
         print(f"100점 환산 점수: {score:.1f}점")
 
         self.update_best_score(score)
+        self.record_game(total, correct_count, hint_count, earned_points, score)
 
         if not self.save_data():
             print("이번 결과를 파일에 저장하지 못했습니다.")
@@ -135,11 +176,50 @@ class QuizGame:
 
         print(f"최고 점수: {self.best_score:.1f}점 / 100점")
 
+    def record_game(self, total, correct_count, hint_count, earned_points, score):
+        record = {
+            "played_at": datetime.now().astimezone().isoformat(
+                timespec="seconds"
+            ),
+            "question_count": total,
+            "correct_count": correct_count,
+            "hint_count": hint_count,
+            "earned_points": earned_points,
+            "score": score,
+        }
+
+        self.history.append(record)
+        print("이번 게임을 기록에 추가했습니다.")
+
+    def show_history(self):
+        print("\n=== 게임 기록 ===")
+
+        if not self.history:
+            print("아직 저장된 게임 기록이 없습니다.")
+            return
+
+        print(f"전체 기록: {len(self.history)}개")
+
+        for number, record in enumerate(reversed(self.history), start=1):
+            try:
+                played_at = datetime.fromisoformat(record["played_at"])
+                time_text = played_at.strftime("%Y-%m-%d %H:%M:%S %z")
+
+                print(f"\n--- 기록 {number} ---")
+                print(f"완료 시간: {time_text}")
+                print(f"문제 수: {record['question_count']}개")
+                print(f"정답 수: {record['correct_count']}개")
+                print(f"힌트 사용: {record['hint_count']}회")
+                print(f"획득 점수: {record['earned_points']}점")
+                print(f"환산 점수: {record['score']:.1f}점")
+
+            except (KeyError, TypeError, ValueError):
+                print(f"기록 {number}의 형식이 올바르지 않아 표시하지 못했습니다.")
+
     def add_quiz(self):
         print("\n=== 퀴즈 추가 ===")
 
         question = self.read_text("문제 내용: ")
-
         choices = []
 
         for number in range(1, 5):
@@ -176,6 +256,46 @@ class QuizGame:
         for number, quiz in enumerate(self.quizzes, start=1):
             print(f"{number}. {quiz.question}")
 
+    def delete_quiz(self):
+        print("\n=== 퀴즈 삭제 ===")
+
+        if not self.quizzes:
+            print("삭제할 퀴즈가 없습니다.")
+            return
+
+        self.list_quizzes()
+
+        number = self.read_number(
+            f"삭제할 문제 번호 (1~{len(self.quizzes)}, 0: 취소): ",
+            0,
+            len(self.quizzes),
+        )
+
+        if number == 0:
+            print("삭제를 취소했습니다.")
+            return
+
+        quiz = self.quizzes[number - 1]
+        print(f"\n삭제할 문제: {quiz.question}")
+
+        confirmation = self.read_number(
+            "정말 삭제할까요? (1. 삭제 / 2. 취소): ",
+            1,
+            2,
+        )
+
+        if confirmation == 2:
+            print("삭제를 취소했습니다.")
+            return
+
+        self.quizzes.pop(number - 1)
+
+        if self.save_data():
+            print(f"퀴즈를 삭제했습니다. 현재 총 {len(self.quizzes)}개입니다.")
+        else:
+            print("메모리에서는 삭제됐지만 파일 저장에 실패했습니다.")
+            print("종료할 때 저장을 다시 시도합니다.")
+
     def run(self):
         while True:
             self.show_menu()
@@ -192,5 +312,7 @@ class QuizGame:
                 self.list_quizzes()
             elif choice == 4:
                 self.show_best_score()
-            else:
-                print("아직 구현하지 않은 기능입니다.")
+            elif choice == 5:
+                self.delete_quiz()
+            elif choice == 6:
+                self.show_history()
