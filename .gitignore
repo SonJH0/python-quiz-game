@@ -3,3 +3,5 @@ __pycache__/
 .venv/
 state.json
 state.json.tmp
+docs/screenshots/originals/
+docs/screenshots/*.png.png
