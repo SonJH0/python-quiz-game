@@ -82,6 +82,24 @@ class QuizGame:
         print("6. 게임 기록 확인")
         print("0. 종료")
 
+    def offer_hint(self, quiz):
+        if not quiz.hint.strip():
+            print("이 문제에는 등록된 힌트가 없습니다.")
+            return False
+
+        print("힌트를 사용하면 정답 점수가 10점에서 5점으로 줄어듭니다.")
+        choice = self.read_number(
+            "힌트를 사용할까요? (1. 사용 / 2. 사용 안 함): ",
+            1,
+            2,
+        )
+
+        if choice == 1:
+            print(f"힌트: {quiz.hint}")
+            return True
+
+        return False
+
     def play(self):
         if not self.quizzes:
             print("등록된 퀴즈가 없습니다.")
@@ -98,26 +116,36 @@ class QuizGame:
 
         selected_quizzes = random.sample(self.quizzes, total)
         correct_count = 0
+        hint_count = 0
+        earned_points = 0
 
         for number, quiz in enumerate(selected_quizzes, start=1):
             print(f"\n--- {number}/{total}번 문제 ---")
             quiz.display()
 
+            used_hint = self.offer_hint(quiz)
+
+            if used_hint:
+                hint_count += 1
+
             answer = self.read_number("정답 번호: ", 1, 4)
 
             if quiz.is_correct(answer):
-                print("정답입니다!")
                 correct_count += 1
+                points = 5 if used_hint else 10
+                earned_points += points
+                print(f"정답입니다! {points}점을 얻었습니다.")
             else:
                 correct_choice = quiz.choices[quiz.answer - 1]
                 print(f"오답입니다. 정답: {quiz.answer}. {correct_choice}")
+                print("이번 문제의 획득 점수는 0점입니다.")
 
-        earned_points = correct_count * 10
         score = round(earned_points / (total * 10) * 100, 1)
 
         print("\n=== 게임 결과 ===")
         print(f"전체 문제: {total}개")
         print(f"맞힌 문제: {correct_count}개")
+        print(f"힌트 사용: {hint_count}회")
         print(f"획득 점수: {earned_points}/{total * 10}점")
         print(f"100점 환산 점수: {score:.1f}점")
 
