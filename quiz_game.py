@@ -191,30 +191,45 @@ class QuizGame:
         self.history.append(record)
         print("이번 게임을 기록에 추가했습니다.")
 
-    def show_history(self):
-        print("\n=== 게임 기록 ===")
+    def iter_pages(self, items, title, reverse=False):
+        """한 번에 20개만 출력하고 원본 전체 목록의 복사를 피한다."""
+        page_size = 20
+        page = 0
+        while True:
+            total = len(items)
+            pages = max(1, (total + page_size - 1) // page_size)
+            print(f"\n=== {title} ({page + 1}/{pages}쪽, 총 {total}개) ===")
+            for index in range(page * page_size, min(total, (page + 1) * page_size)):
+                item = items[total - 1 - index] if reverse else items[index]
+                yield index + 1, item
+            if pages == 1:
+                return
+            action = self.read_number("1. 다음 쪽 / 2. 이전 쪽 / 0. 목록 닫기: ", 0, 2)
+            if action == 0:
+                return
+            if action == 1:
+                if page + 1 < pages:
+                    page += 1
+                else:
+                    print("마지막 쪽입니다.")
+            elif page > 0:
+                page -= 1
+            else:
+                print("첫 쪽입니다.")
 
+    def show_history(self):
         if not self.history:
             print("아직 저장된 게임 기록이 없습니다.")
             return
-
-        print(f"전체 기록: {len(self.history)}개")
-
-        for number, record in enumerate(reversed(self.history), start=1):
-            try:
-                played_at = datetime.fromisoformat(record["played_at"])
-                time_text = played_at.strftime("%Y-%m-%d %H:%M:%S %z")
-
-                print(f"\n--- 기록 {number} ---")
-                print(f"완료 시간: {time_text}")
-                print(f"문제 수: {record['question_count']}개")
-                print(f"정답 수: {record['correct_count']}개")
-                print(f"힌트 사용: {record['hint_count']}회")
-                print(f"획득 점수: {record['earned_points']}점")
-                print(f"환산 점수: {record['score']:.1f}점")
-
-            except (KeyError, TypeError, ValueError):
-                print(f"기록 {number}의 형식이 올바르지 않아 표시하지 못했습니다.")
+        for number, record in self.iter_pages(self.history, "게임 기록", reverse=True):
+            played_at = datetime.fromisoformat(record["played_at"])
+            print(f"\n--- 기록 {number} ---")
+            print(f"완료 시간: {played_at.strftime('%Y-%m-%d %H:%M:%S %z')}")
+            print(f"문제 수: {record['question_count']}개")
+            print(f"정답 수: {record['correct_count']}개")
+            print(f"힌트 사용: {record['hint_count']}회")
+            print(f"획득 점수: {record['earned_points']}점")
+            print(f"환산 점수: {record['score']:.1f}점")
 
     def add_quiz(self):
         print("\n=== 퀴즈 추가 ===")
@@ -245,15 +260,10 @@ class QuizGame:
             print("종료할 때 저장을 다시 시도합니다.")
 
     def list_quizzes(self):
-        print("\n=== 퀴즈 목록 ===")
-
         if not self.quizzes:
             print("등록된 퀴즈가 없습니다.")
             return
-
-        print(f"전체 퀴즈: {len(self.quizzes)}개")
-
-        for number, quiz in enumerate(self.quizzes, start=1):
+        for number, quiz in self.iter_pages(self.quizzes, "퀴즈 목록"):
             print(f"{number}. {quiz.question}")
 
     def delete_quiz(self):

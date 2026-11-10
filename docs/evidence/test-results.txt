@@ -1,0 +1,26 @@
+test_delete_uses_global_index_after_pagination (test_feedback_fixes.PaginationTests.test_delete_uses_global_index_after_pagination) ... ok
+test_first_page_does_not_print_all_thousand (test_feedback_fixes.PaginationTests.test_first_page_does_not_print_all_thousand) ... ok
+test_forward_backward_navigation (test_feedback_fixes.PaginationTests.test_forward_backward_navigation) ... ok
+test_history_newest_first (test_feedback_fixes.PaginationTests.test_history_newest_first) ... ok
+test_backup_failure_does_not_overwrite_state (test_feedback_fixes.StorageTests.test_backup_failure_does_not_overwrite_state) ... ok
+test_cli_list_and_missing_restore (test_feedback_fixes.StorageTests.test_cli_list_and_missing_restore) ... ok
+test_corrupt_file_recovers_without_losing_raw_bytes (test_feedback_fixes.StorageTests.test_corrupt_file_recovers_without_losing_raw_bytes) ... ok
+test_empty_quizzes_stay_empty (test_feedback_fixes.StorageTests.test_empty_quizzes_stay_empty) ... ok
+test_first_save_and_reload (test_feedback_fixes.StorageTests.test_first_save_and_reload) ... ok
+test_invalid_history_and_boolean_answer_rejected (test_feedback_fixes.StorageTests.test_invalid_history_and_boolean_answer_rejected) ... ok
+test_invalid_latest_backup_is_skipped (test_feedback_fixes.StorageTests.test_invalid_latest_backup_is_skipped) ... ok
+test_keep_five_snapshots (test_feedback_fixes.StorageTests.test_keep_five_snapshots) ... ok
+test_manual_restore_preserves_current (test_feedback_fixes.StorageTests.test_manual_restore_preserves_current) ... ok
+test_missing_file_recovers_backup (test_feedback_fixes.StorageTests.test_missing_file_recovers_backup) ... ok
+test_no_backups_uses_defaults_and_preserves_corrupt (test_feedback_fixes.StorageTests.test_no_backups_uses_defaults_and_preserves_corrupt) ... ok
+test_previous_version_is_backed_up (test_feedback_fixes.StorageTests.test_previous_version_is_backed_up) ... ok
+test_read_permission_error_blocks_exit_save (test_feedback_fixes.StorageTests.test_read_permission_error_blocks_exit_save) ... ok
+test_replace_failure_keeps_original (test_feedback_fixes.StorageTests.test_replace_failure_keeps_original) ... ok
+test_restore_rejects_external_path_and_corrupt_backup (test_feedback_fixes.StorageTests.test_restore_rejects_external_path_and_corrupt_backup) ... ok
+test_unchanged_save_creates_no_extra_backup (test_feedback_fixes.StorageTests.test_unchanged_save_creates_no_extra_backup) ... ok
+test_utf8_bom_is_supported (test_feedback_fixes.StorageTests.test_utf8_bom_is_supported) ... ok
+
+----------------------------------------------------------------------
+Ran 21 tests in 0.022s
+
+OK

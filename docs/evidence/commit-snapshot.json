@@ -1,0 +1,176 @@
+{
+  "repository": "SonJH0/python-quiz-game",
+  "ref": "7a35753f6ff5447205c424f60e0afdf1b16c1496",
+  "total": 21,
+  "non_merge": 19,
+  "commits": [
+    {
+      "sha": "7a35753f6ff5447205c424f60e0afdf1b16c1496",
+      "parents": [
+        "80fd22c528e94a3ea56f1f260039c677533301cc"
+      ],
+      "message": "Docs: 증빙 제목과 설명 문구 및 원본 이미지 제외 설정 정리",
+      "date": "2026-11-10T11:05:17Z"
+    },
+    {
+      "sha": "80fd22c528e94a3ea56f1f260039c677533301cc",
+      "parents": [
+        "3614eab6228ffd872fab63a6c41778202dc65d41"
+      ],
+      "message": "Docs: 제출용 실행 화면 14장과 README 이미지 추가",
+      "date": "2026-11-10T11:03:49Z"
+    },
+    {
+      "sha": "3614eab6228ffd872fab63a6c41778202dc65d41",
+      "parents": [
+        "ed35ee0150b14aaab6f762f5764c30212bd0e94c"
+      ],
+      "message": "Docs: clone과 pull 실습 완료 과정 및 결과 정리",
+      "date": "2026-11-10T10:49:36Z"
+    },
+    {
+      "sha": "ed35ee0150b14aaab6f762f5764c30212bd0e94c",
+      "parents": [
+        "65de08f5e0332b44fb6335f61ad8e81a0ecafbdf"
+      ],
+      "message": "Docs: 별도 폴더에서 clone 실습 기록 추가",
+      "date": "2026-11-10T10:45:08Z"
+    },
+    {
+      "sha": "65de08f5e0332b44fb6335f61ad8e81a0ecafbdf",
+      "parents": [
+        "dc9fc0e258f3a70df7c5e4f63770070f52600480"
+      ],
+      "message": "Docs: 실행 방법과 기능 및 데이터 구조 설명 완성",
+      "date": "2026-11-10T10:42:58Z"
+    },
+    {
+      "sha": "dc9fc0e258f3a70df7c5e4f63770070f52600480",
+      "parents": [
+        "aa88a9fb6a7682030c49735863a48b7256d95fea"
+      ],
+      "message": "Docs: 기능 및 예외 처리 검증 결과 기록",
+      "date": "2026-11-10T10:40:52Z"
+    },
+    {
+      "sha": "aa88a9fb6a7682030c49735863a48b7256d95fea",
+      "parents": [
+        "986e0d28659ca7734f47f2bfbd71dedf4622a438",
+        "cd90a8d61ce34e7eb68824f3df6c6b9161732a8b"
+      ],
+      "message": "Merge: 보너스 기능 5종 병합",
+      "date": "2026-11-10T10:32:17Z"
+    },
+    {
+      "sha": "cd90a8d61ce34e7eb68824f3df6c6b9161732a8b",
+      "parents": [
+        "271ba7dee92d7ab1e743c29f6e8a14c5075d4797"
+      ],
+      "message": "Feat: 게임별 완료 시간과 점수 기록 저장 및 조회 구현",
+      "date": "2026-11-10T10:31:25Z"
+    },
+    {
+      "sha": "271ba7dee92d7ab1e743c29f6e8a14c5075d4797",
+      "parents": [
+        "5550f7decbdc97de4fa586115fcc264786d67f63"
+      ],
+      "message": "Feat: 확인과 취소 절차를 포함한 퀴즈 삭제 및 저장 구현",
+      "date": "2026-11-10T10:28:03Z"
+    },
+    {
+      "sha": "5550f7decbdc97de4fa586115fcc264786d67f63",
+      "parents": [
+        "7cbafcf8c295d3609b13cbffd4f3a190878908d2"
+      ],
+      "message": "Feat: 문제별 힌트와 힌트 사용 시 점수 차감 구현",
+      "date": "2026-11-10T10:25:11Z"
+    },
+    {
+      "sha": "7cbafcf8c295d3609b13cbffd4f3a190878908d2",
+      "parents": [
+        "986e0d28659ca7734f47f2bfbd71dedf4622a438"
+      ],
+      "message": "Feat: 무작위 출제와 풀이 문제 수 선택 추가",
+      "date": "2026-11-10T10:22:34Z"
+    },
+    {
+      "sha": "986e0d28659ca7734f47f2bfbd71dedf4622a438",
+      "parents": [
+        "5d5a0921cd4423a0a1cfc53c81fb3f28c714c583"
+      ],
+      "message": "Feat: 최고 점수 확인과 갱신 및 파일 저장 구현",
+      "date": "2026-11-10T10:19:52Z"
+    },
+    {
+      "sha": "5d5a0921cd4423a0a1cfc53c81fb3f28c714c583",
+      "parents": [
+        "d61d97f0e05bfec225aaab0edc567212ed3ad6b9"
+      ],
+      "message": "Feat: 퀴즈 목록 조회와 빈 목록 안내 구현",
+      "date": "2026-11-10T10:16:59Z"
+    },
+    {
+      "sha": "d61d97f0e05bfec225aaab0edc567212ed3ad6b9",
+      "parents": [
+        "a6b6bc146c13e8ba0e9b643ae20fa384eb7f49f3"
+      ],
+      "message": "Feat: 퀴즈 등록과 빈 입력 검증 및 즉시 저장 구현",
+      "date": "2026-11-10T10:15:09Z"
+    },
+    {
+      "sha": "a6b6bc146c13e8ba0e9b643ae20fa384eb7f49f3",
+      "parents": [
+        "ed3fcfd9f2a26f35f4a97cae0b918680bf8fab3d"
+      ],
+      "message": "Feat: JSON 저장과 불러오기 및 종료 시 저장 연결",
+      "date": "2026-11-10T10:09:27Z"
+    },
+    {
+      "sha": "ed3fcfd9f2a26f35f4a97cae0b918680bf8fab3d",
+      "parents": [
+        "e55efcabaafad0655040188b375fa1c3b57d11ab",
+        "1df2b70bbd409b51057bd7ff85574e938cc9ca2b"
+      ],
+      "message": "Merge: 퀴즈 풀이 기능 병합",
+      "date": "2026-11-10T10:00:44Z"
+    },
+    {
+      "sha": "1df2b70bbd409b51057bd7ff85574e938cc9ca2b",
+      "parents": [
+        "e55efcabaafad0655040188b375fa1c3b57d11ab"
+      ],
+      "message": "Feat: QuizGame 기반 퀴즈 풀이와 결과 출력 구현",
+      "date": "2026-11-10T10:00:34Z"
+    },
+    {
+      "sha": "e55efcabaafad0655040188b375fa1c3b57d11ab",
+      "parents": [
+        "b9ece22b2bea9aa9210cb8caa21451844c791f85"
+      ],
+      "message": "Feat: 파이썬 기초 기본 퀴즈 10개와 힌트 추가",
+      "date": "2026-11-10T09:56:50Z"
+    },
+    {
+      "sha": "b9ece22b2bea9aa9210cb8caa21451844c791f85",
+      "parents": [
+        "9e4e1a474b0cd2bb38e39ec1da31eac81f378791"
+      ],
+      "message": "Feat: Quiz 클래스와 문제 출력 및 정답 확인 구현",
+      "date": "2026-11-10T09:52:43Z"
+    },
+    {
+      "sha": "9e4e1a474b0cd2bb38e39ec1da31eac81f378791",
+      "parents": [
+        "a5d31ef3ba7b5a5be8a4fb02dc31d47cf0bb2706"
+      ],
+      "message": "Feat: 반복 메뉴와 공통 숫자 입력 검증 구현",
+      "date": "2026-11-10T09:50:13Z"
+    },
+    {
+      "sha": "a5d31ef3ba7b5a5be8a4fb02dc31d47cf0bb2706",
+      "parents": [],
+      "message": "Chore: 프로젝트 초기 파일과 Git 제외 설정 추가",
+      "date": "2026-11-10T09:45:21Z"
+    }
+  ]
+}

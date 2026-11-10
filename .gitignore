@@ -5,3 +5,4 @@ state.json
 state.json.tmp
 docs/screenshots/originals/
 docs/screenshots/*.png.png
+backups/

@@ -1,0 +1,25 @@
+{
+  "python": "3.12.14",
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "results": [
+    {
+      "quiz_count": 1000,
+      "json_bytes": 276350,
+      "save_with_backup_median_ms": 14.144,
+      "load_validate_median_ms": 2.478,
+      "load_and_objects_median_ms": 2.482,
+      "load_python_peak_mib": 1.059,
+      "repeats": 5
+    },
+    {
+      "quiz_count": 10000,
+      "json_bytes": 2772951,
+      "save_with_backup_median_ms": 131.687,
+      "load_validate_median_ms": 20.665,
+      "load_and_objects_median_ms": 28.251,
+      "load_python_peak_mib": 10.647,
+      "repeats": 5
+    }
+  ],
+  "scope": "임시 폴더, 생성 데이터, 게임 기록 0개, Python 할당 최고치; 전체 RSS 아님"
+}
