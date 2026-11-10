@@ -110,6 +110,31 @@ class QuizGame:
         print(f"획득 점수: {earned_points}/{total * 10}점")
         print(f"100점 환산 점수: {score:.1f}점")
 
+        self.update_best_score(score)
+
+        if not self.save_data():
+            print("이번 결과를 파일에 저장하지 못했습니다.")
+            print("종료할 때 저장을 다시 시도합니다.")
+
+    def update_best_score(self, score):
+        if self.best_score is None:
+            self.best_score = score
+            print("첫 최고 점수를 기록했습니다.")
+        elif score > self.best_score:
+            self.best_score = score
+            print("최고 점수를 갱신했습니다.")
+        else:
+            print(f"기존 최고 점수: {self.best_score:.1f}점")
+
+    def show_best_score(self):
+        print("\n=== 최고 점수 ===")
+
+        if self.best_score is None:
+            print("아직 완료한 게임이 없습니다.")
+            return
+
+        print(f"최고 점수: {self.best_score:.1f}점 / 100점")
+
     def add_quiz(self):
         print("\n=== 퀴즈 추가 ===")
 
@@ -165,5 +190,7 @@ class QuizGame:
                 self.add_quiz()
             elif choice == 3:
                 self.list_quizzes()
+            elif choice == 4:
+                self.show_best_score()
             else:
                 print("아직 구현하지 않은 기능입니다.")
