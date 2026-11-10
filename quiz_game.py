@@ -214,6 +214,46 @@ class QuizGame:
         for number, quiz in enumerate(self.quizzes, start=1):
             print(f"{number}. {quiz.question}")
 
+    def delete_quiz(self):
+        print("\n=== 퀴즈 삭제 ===")
+
+        if not self.quizzes:
+            print("삭제할 퀴즈가 없습니다.")
+            return
+
+        self.list_quizzes()
+
+        number = self.read_number(
+            f"삭제할 문제 번호 (1~{len(self.quizzes)}, 0: 취소): ",
+            0,
+            len(self.quizzes),
+        )
+
+        if number == 0:
+            print("삭제를 취소했습니다.")
+            return
+
+        quiz = self.quizzes[number - 1]
+        print(f"\n삭제할 문제: {quiz.question}")
+
+        confirmation = self.read_number(
+            "정말 삭제할까요? (1. 삭제 / 2. 취소): ",
+            1,
+            2,
+        )
+
+        if confirmation == 2:
+            print("삭제를 취소했습니다.")
+            return
+
+        self.quizzes.pop(number - 1)
+
+        if self.save_data():
+            print(f"퀴즈를 삭제했습니다. 현재 총 {len(self.quizzes)}개입니다.")
+        else:
+            print("메모리에서는 삭제됐지만 파일 저장에 실패했습니다.")
+            print("종료할 때 저장을 다시 시도합니다.")
+
     def run(self):
         while True:
             self.show_menu()
@@ -230,5 +270,7 @@ class QuizGame:
                 self.list_quizzes()
             elif choice == 4:
                 self.show_best_score()
+            elif choice == 5:
+                self.delete_quiz()
             else:
                 print("아직 구현하지 않은 기능입니다.")
