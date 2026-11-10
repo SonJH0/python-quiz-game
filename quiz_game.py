@@ -1,4 +1,5 @@
 import random
+from datetime import datetime
 
 from quiz import Quiz
 from storage import load_state, save_state
@@ -150,6 +151,7 @@ class QuizGame:
         print(f"100점 환산 점수: {score:.1f}점")
 
         self.update_best_score(score)
+        self.record_game(total, correct_count, hint_count, earned_points, score)
 
         if not self.save_data():
             print("이번 결과를 파일에 저장하지 못했습니다.")
@@ -173,6 +175,46 @@ class QuizGame:
             return
 
         print(f"최고 점수: {self.best_score:.1f}점 / 100점")
+
+    def record_game(self, total, correct_count, hint_count, earned_points, score):
+        record = {
+            "played_at": datetime.now().astimezone().isoformat(
+                timespec="seconds"
+            ),
+            "question_count": total,
+            "correct_count": correct_count,
+            "hint_count": hint_count,
+            "earned_points": earned_points,
+            "score": score,
+        }
+
+        self.history.append(record)
+        print("이번 게임을 기록에 추가했습니다.")
+
+    def show_history(self):
+        print("\n=== 게임 기록 ===")
+
+        if not self.history:
+            print("아직 저장된 게임 기록이 없습니다.")
+            return
+
+        print(f"전체 기록: {len(self.history)}개")
+
+        for number, record in enumerate(reversed(self.history), start=1):
+            try:
+                played_at = datetime.fromisoformat(record["played_at"])
+                time_text = played_at.strftime("%Y-%m-%d %H:%M:%S %z")
+
+                print(f"\n--- 기록 {number} ---")
+                print(f"완료 시간: {time_text}")
+                print(f"문제 수: {record['question_count']}개")
+                print(f"정답 수: {record['correct_count']}개")
+                print(f"힌트 사용: {record['hint_count']}회")
+                print(f"획득 점수: {record['earned_points']}점")
+                print(f"환산 점수: {record['score']:.1f}점")
+
+            except (KeyError, TypeError, ValueError):
+                print(f"기록 {number}의 형식이 올바르지 않아 표시하지 못했습니다.")
 
     def add_quiz(self):
         print("\n=== 퀴즈 추가 ===")
@@ -272,5 +314,5 @@ class QuizGame:
                 self.show_best_score()
             elif choice == 5:
                 self.delete_quiz()
-            else:
-                print("아직 구현하지 않은 기능입니다.")
+            elif choice == 6:
+                self.show_history()
