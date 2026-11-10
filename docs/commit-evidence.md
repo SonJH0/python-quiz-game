@@ -11,7 +11,7 @@
 
 2026-11-11에 GitHub API로 main 이력을 조회했습니다. 기준 HEAD는 `7a35753f6ff5447205c424f60e0afdf1b16c1496`입니다.
 전체 21개 중 병합 2개를 제외한 **일반 커밋 19개**입니다. 사진의 17개 이후 증빙 문서 관련 커밋 2개가 추가됐습니다.
-이 수정 패키지 자체는 아직 원격 저장소에 커밋하지 않았으므로 위 개수에 포함하지 않았습니다.
+위 개수는 수정 전 이력 스냅샷이며, 이후 수정 커밋은 포함하지 않습니다.
 
 [조회 원자료](evidence/commit-snapshot.json) · [실제 GitHub 이력](https://github.com/SonJH0/python-quiz-game/commits/main/)
 
