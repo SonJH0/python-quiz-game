@@ -1,10 +1,42 @@
-from default_quizzes import create_default_quizzes
+from quiz import Quiz
+from storage import load_state, save_state
 
 
 class QuizGame:
     def __init__(self):
-        self.quizzes = create_default_quizzes()
+        self.quizzes = []
         self.best_score = None
+        self.history = []
+        self.load_data()
+
+    def load_data(self):
+        state = load_state()
+
+        self.quizzes = [
+            Quiz(
+                question=item["question"],
+                choices=item["choices"],
+                answer=item["answer"],
+                hint=item.get("hint", ""),
+            )
+            for item in state["quizzes"]
+        ]
+
+        self.best_score = state["best_score"]
+        self.history = state["history"]
+
+    def save_data(self):
+        state = {
+            "quizzes": [
+                quiz.to_dict()
+                for quiz in self.quizzes
+            ],
+            "best_score": self.best_score,
+            "history": self.history,
+        }
+
+        if save_state(state):
+            print("ゲーム 데이터를 저장했습니다.")
 
     def read_number(self, prompt, minimum, maximum):
         while True:
